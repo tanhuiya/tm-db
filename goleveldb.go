@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"path/filepath"
+	"time"
 
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/errors"
@@ -44,7 +45,10 @@ func (db *GoLevelDB) Get(key []byte) ([]byte, error) {
 	if len(key) == 0 {
 		return nil, errKeyEmpty
 	}
+	start := time.Now()
 	res, err := db.db.Get(key, nil)
+	elapsed := time.Since(start)
+	fmt.Println("########Get "+string(key)+" Cost: ", elapsed)
 	if err != nil {
 		if err == errors.ErrNotFound {
 			return nil, nil

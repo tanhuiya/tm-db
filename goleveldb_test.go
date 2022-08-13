@@ -31,6 +31,7 @@ func TestGoLevelDBNewGoLevelDB(t *testing.T) {
 func BenchmarkGoLevelDBRandomReadsWrites(b *testing.B) {
 	name := fmt.Sprintf("test_%x", randStr(12))
 	db, err := NewGoLevelDB(name, "")
+	db.Get([]byte("123"))
 	if err != nil {
 		b.Fatal(err)
 	}
